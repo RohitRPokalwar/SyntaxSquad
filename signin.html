@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduElite Academy | Premium Learning Portal</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-light: #3b82f6;
+            --primary-dark: #1d4ed8;
+            --white: rgba(255, 255, 255, 0.95);
+            --light-white: rgba(255, 255, 255, 0.7);
+            --glass: rgba(255, 255, 255, 0.15);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --error: #ff6b6b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow: hidden;
+            position: relative;
+            color: var(--white);
+        }
+
+        /* Cosmic Background Animation */
+        .cosmic-particle {
+            position: absolute;
+            background: var(--white);
+            border-radius: 50%;
+            filter: blur(1px);
+            animation: cosmic-float linear infinite;
+            z-index: 1;
+            opacity: 0;
+        }
+
+        @keyframes cosmic-float {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.3;
+            }
+            90% {
+                opacity: 0.3;
+            }
+            100% {
+                transform: translate(var(--tx, 100px), var(--ty, 100px)) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Floating Diamond Shapes */
+        .diamond {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transform: rotate(45deg);
+            animation: diamond-float ease-in-out infinite;
+            z-index: 1;
+        }
+
+        @keyframes diamond-float {
+            0%, 100% {
+                transform: rotate(45deg) translateY(0);
+            }
+            50% {
+                transform: rotate(45deg) translateY(-20px);
+            }
+        }
+
+        /* Main Container */
+        .portal-container {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 24px;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25),
+                        inset 0 0 20px rgba(255, 255, 255, 0.1);
+            padding: 48px;
+            width: 100%;
+            max-width: 500px;
+            z-index: 10;
+            position: relative;
+            overflow: hidden;
+            transform: translateY(20px);
+            opacity: 0;
+            animation: portal-entrance 1s cubic-bezier(0.22, 1, 0.36, 1) 0.3s forwards;
+        }
+
+        @keyframes portal-entrance {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .portal-container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            animation: rotate 25s linear infinite;
+            z-index: -1;
+        }
+
+        /* Header Section */
+        .portal-header {
+            text-align: center;
+            margin-bottom: 32px;
+            position: relative;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.4);
+            animation: logo-pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes logo-pulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 10px 30px rgba(37, 99, 235, 0.4);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 15px 40px rgba(37, 99, 235, 0.6);
+            }
+        }
+
+        .logo i {
+            font-size: 36px;
+            color: white;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            background: linear-gradient(to right, var(--white), var(--light-white));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            position: relative;
+            display: inline-block;
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--primary-light), transparent);
+            border-radius: 3px;
+        }
+
+        .portal-subtitle {
+            font-size: 1.1rem;
+            font-weight: 300;
+            color: var(--light-white);
+            line-height: 1.6;
+            max-width: 320px;
+            margin: 0 auto;
+        }
+
+        /* Form Styles */
+        .portal-form {
+            position: relative;
+        }
+
+        .form-group {
+            position: relative;
+            margin-bottom: 24px;
+        }
+
+        .form-group label {
+            position: absolute;
+            top: 16px;
+            left: 20px;
+            color: var(--light-white);
+            font-weight: 300;
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 24px 20px 12px;
+            border: none;
+            border-radius: 12px;
+            background: rgba(0, 0, 0, 0.2);
+            color: var(--white);
+            font-size: 1rem;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+        }
+
+        .form-group input:focus {
+            outline: none;
+            background: rgba(0, 0, 0, 0.3);
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+        }
+
+        .form-group input:focus + label,
+        .form-group input:valid + label {
+            top: 8px;
+            font-size: 0.75rem;
+            color: var(--primary-light);
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--light-white);
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .password-toggle:hover {
+            color: var(--white);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            margin-top: 10px;
+            box-shadow: 0 10px 20px rgba(37, 99, 235, 0.3);
+            z-index: 1;
+        }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+            z-index: -1;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(37, 99, 235, 0.4);
+        }
+
+        .submit-btn:hover::before {
+            left: 100%;
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Form Footer */
+        .form-footer {
+            text-align: center;
+            margin-top: 24px;
+            font-size: 0.9rem;
+            font-weight: 300;
+        }
+
+        .form-toggle {
+            color: var(--light-white);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            display: inline-block;
+        }
+
+        .form-toggle:hover {
+            color: var(--white);
+        }
+
+        .form-toggle::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--primary-light);
+            transition: width 0.3s ease;
+        }
+
+        .form-toggle:hover::after {
+            width: 100%;
+        }
+
+        /* Error Messages */
+        .error-message {
+            color: var(--error);
+            font-size: 0.85rem;
+            margin-top: 8px;
+            display: none;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Hidden State */
+        .hidden {
+            display: none;
+        }
+
+        /* Floating Orbs */
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(40px);
+            opacity: 0.2;
+            z-index: 0;
+            animation: orb-pulse 15s ease-in-out infinite alternate;
+        }
+
+        @keyframes orb-pulse {
+            0% {
+                transform: scale(0.8);
+                opacity: 0.1;
+            }
+            50% {
+                transform: scale(1.2);
+                opacity: 0.3;
+            }
+            100% {
+                transform: scale(0.8);
+                opacity: 0.1;
+            }
+        }
+
+        /* Decorative Elements */
+        .decorative-corner {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border-width: 2px;
+            border-style: solid;
+            border-color: transparent transparent var(--primary-light) var(--primary-light);
+            opacity: 0.3;
+            animation: corner-fade 8s ease-in-out infinite;
+        }
+
+        @keyframes corner-fade {
+            0%, 100% {
+                opacity: 0.1;
+            }
+            50% {
+                opacity: 0.4;
+            }
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 600px) {
+            .portal-container {
+                padding: 32px 24px;
+                margin: 0 16px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .logo {
+                width: 60px;
+                height: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Orbs -->
+    <div class="orb" style="width: 300px; height: 300px; background: var(--primary); top: -100px; left: -100px; animation-delay: 0s;"></div>
+    <div class="orb" style="width: 400px; height: 400px; background: #7c3aed; bottom: -150px; right: -100px; animation-delay: 2s;"></div>
+
+    <!-- Decorative Corners -->
+    <div class="decorative-corner" style="top: 0; left: 0; border-radius: 0 0 100% 0;"></div>
+    <div class="decorative-corner" style="bottom: 0; right: 0; border-radius: 100% 0 0 0; border-color: var(--primary-light) transparent transparent var(--primary-light);"></div>
+
+    <div class="portal-container">
+        <!-- Sign In Section -->
+        <div id="signinSection">
+            <div class="portal-header">
+                <div class="logo">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h1>Welcome Back</h1>
+                <p class="portal-subtitle">Sign in to access your personalized learning dashboard</p>
+            </div>
+            
+            <form id="signinForm" class="portal-form">
+                <div class="form-group">
+                    <input type="email" id="loginEmail" required>
+                    <label for="loginEmail">Email Address</label>
+                </div>
+                
+                <div class="form-group">
+                    <input type="password" id="loginPassword" required>
+                    <label for="loginPassword">Password</label>
+                    <span class="password-toggle" id="toggleLoginPassword">
+                        <i class="far fa-eye"></i>
+                    </span>
+                </div>
+                
+                <button type="submit" class="submit-btn">Sign In</button>
+                <p id="login-error-msg" class="error-message"></p>
+                
+                <div class="form-footer">
+                    <p>Don't have an account? <span class="form-toggle" id="showSignup">Sign up</span></p>
+                </div>
+            </form>
+        </div>
+
+        <!-- Sign Up Section -->
+        <div id="signupSection" class="hidden">
+            <div class="portal-header">
+                <div class="logo">
+                    <i class="fas fa-user-plus"></i>
+                </div>
+                <h1>Create Account</h1>
+                <p class="portal-subtitle">Join EduElite Academy to begin your learning journey</p>
+            </div>
+            
+            <form id="signupForm" class="portal-form">
+                <div class="form-group">
+                    <input type="text" id="signupName" required>
+                    <label for="signupName">Full Name</label>
+                </div>
+                
+                <div class="form-group">
+                    <input type="email" id="signupEmail" required>
+                    <label for="signupEmail">Email Address</label>
+                </div>
+                
+                <div class="form-group">
+                    <input type="password" id="signupPassword" required>
+                    <label for="signupPassword">Password</label>
+                    <span class="password-toggle" id="toggleSignupPassword">
+                        <i class="far fa-eye"></i>
+                    </span>
+                </div>
+                
+                <div class="form-group">
+                    <input type="password" id="signupConfirmPassword" required>
+                    <label for="signupConfirmPassword">Confirm Password</label>
+                    <span class="password-toggle" id="toggleSignupConfirmPassword">
+                        <i class="far fa-eye"></i>
+                    </span>
+                </div>
+                
+                <button type="submit" class="submit-btn">Create Account</button>
+                <p id="signup-error-msg" class="error-message"></p>
+                
+                <div class="form-footer">
+                    <p>Already have an account? <span class="form-toggle" id="showSignin">Sign in</span></p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Animation Scripts -->
+    <script>
+        // Create cosmic particles
+        function createCosmicParticles() {
+            const particleCount = 30;
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('cosmic-particle');
+                
+                const size = Math.random() * 3 + 1;
+                const posX = Math.random() * window.innerWidth;
+                const posY = Math.random() * window.innerHeight;
+                const duration = Math.random() * 20 + 10;
+                const delay = Math.random() * 5;
+                const tx = (Math.random() - 0.5) * 200;
+                const ty = (Math.random() - 0.5) * 200;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${posX}px`;
+                particle.style.top = `${posY}px`;
+                particle.style.animationDuration = `${duration}s`;
+                particle.style.animationDelay = `${delay}s`;
+                particle.style.setProperty('--tx', `${tx}px`);
+                particle.style.setProperty('--ty', `${ty}px`);
+                
+                document.body.appendChild(particle);
+            }
+        }
+
+        // Create floating diamonds
+        function createFloatingDiamonds() {
+            const diamondCount = 8;
+            for (let i = 0; i < diamondCount; i++) {
+                const diamond = document.createElement('div');
+                diamond.classList.add('diamond');
+                
+                const size = Math.random() * 40 + 20;
+                const posX = Math.random() * window.innerWidth;
+                const posY = Math.random() * window.innerHeight;
+                const duration = Math.random() * 15 + 10;
+                const delay = Math.random() * 5;
+                
+                diamond.style.width = `${size}px`;
+                diamond.style.height = `${size}px`;
+                diamond.style.left = `${posX}px`;
+                diamond.style.top = `${posY}px`;
+                diamond.style.animationDuration = `${duration}s`;
+                diamond.style.animationDelay = `${delay}s`;
+                
+                document.body.appendChild(diamond);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            createCosmicParticles();
+            createFloatingDiamonds();
+        });
+    </script>
+
+    <!-- Functionality Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script>
+        // Initialize EmailJS
+        (function() {
+            emailjs.init({
+                publicKey: "G8RSxLwGzAA7YYVna",
+                blockHeadless: true,
+            });
+        })();
+
+        // Toggle password visibility
+        function setupPasswordToggle(eyeIconId, passwordFieldId) {
+            const eyeIcon = document.getElementById(eyeIconId);
+            const passwordField = document.getElementById(passwordFieldId);
+            
+            eyeIcon.addEventListener('click', function() {
+                const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordField.setAttribute('type', type);
+                this.innerHTML = type === 'password' ? '<i class="far fa-eye"></i>' : '<i class="far fa-eye-slash"></i>';
+            });
+        }
+
+        // Setup all password toggles
+        setupPasswordToggle('toggleLoginPassword', 'loginPassword');
+        setupPasswordToggle('toggleSignupPassword', 'signupPassword');
+        setupPasswordToggle('toggleSignupConfirmPassword', 'signupConfirmPassword');
+
+        // Form toggle functionality
+        document.getElementById('showSignup').addEventListener('click', () => {
+            document.getElementById('signinSection').classList.add('hidden');
+            document.getElementById('signupSection').classList.remove('hidden');
+        });
+
+        document.getElementById('showSignin').addEventListener('click', () => {
+            document.getElementById('signupSection').classList.add('hidden');
+            document.getElementById('signinSection').classList.remove('hidden');
+        });
+
+        // Form submission handlers
+        document.getElementById('signinForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            const errorElement = document.getElementById('login-error-msg');
+
+            if (email === "swamiatharv168@gmail.com" && password === "Atharv16") {
+                try {
+                    await emailjs.send("service_7folirl", "template_8dclmhb", {
+                        to_email: email,
+                        from_name: "EduElite Academy",
+                        message: "You have successfully signed in to your account!"
+                    });
+                    
+                    // Add success animation
+                    this.classList.add('submit-success');
+                    setTimeout(() => {
+                        alert("Welcome back! Check your email for confirmation.");
+                        window.location.href = "index.html";
+                    }, 1000);
+                } catch (error) {
+                    showError(errorElement, "Signed in, but welcome email failed to send");
+                }
+            } else {
+                showError(errorElement, "Invalid email or password");
+                this.classList.add('submit-error');
+                setTimeout(() => this.classList.remove('submit-error'), 1000);
+            }
+        });
+
+        document.getElementById('signupForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const name = document.getElementById('signupName').value;
+            const email = document.getElementById('signupEmail').value;
+            const password = document.getElementById('signupPassword').value;
+            const confirmPassword = document.getElementById('signupConfirmPassword').value;
+            const errorElement = document.getElementById('signup-error-msg');
+
+            if (password !== confirmPassword) {
+                showError(errorElement, "Passwords don't match");
+                this.classList.add('submit-error');
+                setTimeout(() => this.classList.remove('submit-error'), 1000);
+                return;
+            }
+
+            try {
+                await emailjs.send("service_7folirl", "template_8dclmhb", {
+                    to_email: email,
+                    from_name: "EduElite Academy",
+                    user_name: name,
+                    message: `Welcome to EduElite Academy, ${name}! Your account has been successfully created.`
+                });
+                
+                // Add success animation
+                this.classList.add('submit-success');
+                setTimeout(() => {
+                    alert(`Welcome ${name}! Check your email for confirmation.`);
+                    window.location.href = "index.html";
+                }, 1000);
+            } catch (error) {
+                showError(errorElement, "Account created, but welcome email failed to send");
+            }
+        });
+
+        function showError(element, message) {
+            element.textContent = message;
+            element.style.display = 'block';
+            setTimeout(() => {
+                element.style.display = 'none';
+            }, 5000);
+        }
+    </script>
+</body>
+</html>
